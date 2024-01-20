@@ -1,11 +1,7 @@
-import { useState } from "react";
 
-export default function Square() {
-    const [square, setSquare] = useState(null);
-    function handleClick() {
-        setSquare('X');
-    }
+export default function Square({ value, onSquareClick }) {
+
     return (
-        <button className="square" onClick={handleClick}>{square}</button>
+        <button className="square" onClick={onSquareClick}>{value}</button>
     )
 }
