@@ -1,7 +1,7 @@
 import calculateWinner from './CalculateWinner.jsx';
 import Square from './Square.jsx';
 
-export default function Board({ onPlay, count, squares, xIsNext }) {
+export default function Board({ onPlay, squares, xIsNext }) {
 
     const winner = calculateWinner(squares);
     let status;
@@ -21,8 +21,7 @@ export default function Board({ onPlay, count, squares, xIsNext }) {
         } else {
             nextSquares[i] = 'O';
         }
-        setSquares(nextSquares);
-        setXIsNext(!xIsNext);
+        onPlay(nextSquares);
     }
 
     return (
