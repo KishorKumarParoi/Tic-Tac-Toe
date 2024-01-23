@@ -27,16 +27,65 @@ function calculateWinner(squares) {
     return null;
 }
 
-export default function Board() {
-    const [squares, setSquares] = useState(Array(9).fill(null));
-    const [xIsNext, setXIsNext] = useState(true);
+export default function Game() {
+    const [count, setCount] = useState(0);
+    const [history, setHistory] = useState([Array(9).fill(null)]);
+    const [currentMove, setCurrentMove] = useState(0);
+    const currentSquares = history[currentMove];
+    const currentCount = currentMove;
+    const xIsNext = currentMove % 2 === 0;
+
+    function handlePlay(newCount, nextSquares) {
+        const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+        setHistory(nextHistory);
+        // console.log(history);
+        // const nextCount = [...count.slice(0, currentMove + 1), newCount];
+        setCount(newCount + 1);
+        console.log(count);
+        setCurrentMove(nextHistory.length - 1);
+    }
+
+    function jumpTo(nextMove) {
+        setCurrentMove(nextMove);
+    }
+
+    const moves = history.map((squares, move) => {
+        let description;
+        if (move > 0) {
+            description = `Go to move #${move}`;
+        } else {
+            description = 'Go to game start';
+        }
+
+        return (
+            <li key={move} className="mb-1 p-2 bg-yellow-500">
+                <button onClick={() => jumpTo(move)} >{description}</button>
+            </li>
+        )
+    })
+
+    return (
+        <>
+            <Board onPlay={handlePlay} count={currentCount} xIsNext={!xIsNext} squares={currentSquares} />
+            <div className="bg-slate-600">
+                <ol className="bg-white text-black font-bold">{moves}</ol>
+            </div>
+        </>
+    )
+}
+
+function Board({ onPlay, count, squares, xIsNext }) {
 
     const winner = calculateWinner(squares);
     let status;
     if (winner) {
         status = `Winner: ${winner.winner}`;
     } else {
-        status = `Next player: ${xIsNext ? 'X' : 'O'}`;
+        if (count === 9) {
+            status = 'Match Drawn';
+        } else {
+            status = `Next player: ${xIsNext ? 'X' : 'O'}`;
+        }
     }
 
     function handleClick(i) {
@@ -47,8 +96,7 @@ export default function Board() {
         } else {
             nextSquares[i] = 'O';
         }
-        setSquares(nextSquares);
-        setXIsNext(!xIsNext);
+        onPlay(count, nextSquares, xIsNext);
     }
 
     return (
