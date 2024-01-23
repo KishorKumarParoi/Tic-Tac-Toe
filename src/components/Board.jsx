@@ -1,14 +1,18 @@
 import calculateWinner from './CalculateWinner.jsx';
 import Square from './Square.jsx';
 
-export default function Board({ onPlay, squares, xIsNext }) {
+export default function Board({ onPlay, count, squares, xIsNext }) {
 
     const winner = calculateWinner(squares);
     let status;
     if (winner) {
         status = `Winner: ${winner.winner}`;
     } else {
-        status = `Next player: ${xIsNext ? 'X' : 'O'}`;
+        if (count === 9) {
+            status = 'Match Drawn';
+        } else {
+            status = `Next player: ${xIsNext ? 'X' : 'O'}`;
+        }
     }
 
     function handleClick(i) {
