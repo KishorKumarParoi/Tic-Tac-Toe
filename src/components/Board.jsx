@@ -16,8 +16,7 @@ export default function Board({ onPlay, count, squares, xIsNext }) {
     }
 
     function handleClick(i) {
-        if (squares[i]) return;
-        if (calculateWinner(squares).winner !== null) return;
+        if (squares[i] || calculateWinner(squares)) return;
 
         const nextSquares = squares.slice();
         if (xIsNext) {
