@@ -54,12 +54,6 @@ ul {
     box-sizing: border-box;
 }
 
-body {
-    font-family: sans-serif;
-    margin: 20px;
-    padding: 0;
-}
-
 .square {
     background: #fff;
     border: 1px solid #999;
@@ -92,4 +86,8 @@ body {
 
 .game-info {
     margin-left: 20px;
+}
+
+.highlight {
+    background: linear-gradient(tomato, #fff, green);
 }

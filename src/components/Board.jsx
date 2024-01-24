@@ -5,14 +5,30 @@ export default function Board({ onPlay, count, squares, xIsNext }) {
 
     const winner = calculateWinner(squares);
     let status;
+
     if (winner) {
         status = `Winner: ${winner.winner}`;
+        console.log(winner.line);
+
+        let [a, b, c] = winner.line;
+        let firstElement = document.getElementById(`square-${a}`);
+        let secondElement = document.getElementById(`square-${b}`);
+        let thirdElement = document.getElementById(`square-${c}`);
+
+        firstElement.classList.add('highlight');
+        secondElement.classList.add('highlight');
+        thirdElement.classList.add('highlight');
+
     } else {
         if (count === 9) {
             status = 'Match Drawn';
         } else {
             status = `Next player: ${xIsNext ? 'X' : 'O'}`;
         }
+
+        document.querySelectorAll('.highlight').forEach((square) => {
+            square.classList.remove('highlight');
+        });
     }
 
     function handleClick(i) {
@@ -33,7 +49,7 @@ export default function Board({ onPlay, count, squares, xIsNext }) {
             const index = row * boardLength + col;
 
             return (
-                <Square key={index} value={squares[index]} onSquareClick={() => handleClick(index)} />
+                <Square key={index} id={`square-${index}`} value={squares[index]} onSquareClick={() => handleClick(index)} />
             )
         });
 
