@@ -32,10 +32,10 @@ export default function Game() {
         const row = Math.floor(turnInfo.index / 3);
         const col = turnInfo.index % 3;
         const Symbol = turnInfo.index % 2 === 0 ? 'X' : 'O';
-        const currentSquares = turnInfo.squares;
+        // const currentSquares = turnInfo.squares;
 
         if (move > 0) {
-            console.log(currentSquares);
+            // console.log(currentSquares);
             description = `Go to move #${move} index: ${turnInfo.index} of Board[${row}][${col}] of Symbol: ${Symbol})`;
         } else {
             description = 'Go to game start';

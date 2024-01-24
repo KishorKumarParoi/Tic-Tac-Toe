@@ -8,7 +8,7 @@ export default function Board({ onPlay, count, squares, xIsNext }) {
 
     if (winner) {
         status = `Winner: ${winner.winner}`;
-        console.log(winner.line);
+        // console.log(winner.line);
 
         let [a, b, c] = winner.line;
         let firstElement = document.getElementById(`square-${a}`);
