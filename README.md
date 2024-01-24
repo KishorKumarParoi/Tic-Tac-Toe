@@ -1,5 +1,6 @@
 For Live Preview : https://tic-tac-toe-ten-ashy.vercel.app/
-I have 5 Features in my Tic-Tac-Toe App
+
+- I have 5 Features in my Tic-Tac-Toe App
 
 1. For the current move only, show “You are at move #…” instead of a button.
 2. Rewrite Board to use two loops to make the squares instead of hardcoding them.
