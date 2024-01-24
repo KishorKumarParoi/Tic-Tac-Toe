@@ -38,7 +38,7 @@ export default function Game() {
 
     return (
         <>
-            <Board onPlay={handlePlay} count={count} xIsNext={!xIsNext} squares={currentSquares} />
+            <Board onPlay={handlePlay} count={count} xIsNext={xIsNext} squares={currentSquares} />
             <div className="bg-slate-600">
                 <ol className="bg-white text-black font-bold">{moves}</ol>
             </div>
