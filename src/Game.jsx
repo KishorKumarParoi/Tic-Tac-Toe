@@ -13,7 +13,6 @@ export default function Game() {
         const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
         setHistory(nextHistory);
         setCount(count + 1);
-        // console.log(count);
         setCurrentMove(nextHistory.length - 1);
     }
 
@@ -31,7 +30,13 @@ export default function Game() {
 
         return (
             <li key={move} className="mb-1 p-2 bg-yellow-500">
-                <button onClick={() => jumpTo(move)} >{description}</button>
+                {currentMove === move ? (
+                    <>You are at move #{move}</>
+                ) :
+                    (
+                        <button onClick={() => jumpTo(move)} >{description}</button>
+                    )
+                }
             </li>
         )
     })
