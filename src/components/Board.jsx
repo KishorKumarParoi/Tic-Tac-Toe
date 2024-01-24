@@ -29,25 +29,21 @@ export default function Board({ onPlay, count, squares, xIsNext }) {
 
     const boardLength = 3;
     const boardRows = [...Array(boardLength).keys()].map((row) => {
-
-        const boardSquares = [...Array(boardLength).keys()].map((col) => {
-
+        const boardCols = [...Array(boardLength).keys()].map((col) => {
             const index = row * boardLength + col;
 
             return (
-                <Square key={index}
-                    value={squares[index]}
-                    onSquareClick={() => handleClick(index)}
-                />
-            );
+                <Square key={index} value={squares[index]} onSquareClick={() => handleClick(index)} />
+            )
         });
 
         return (
-            <div key={row} className="flex flex-row">
-                {boardSquares}
+            <div key={row} className='flex flex-row'>
+                {boardCols}
             </div>
-        );
-    });
+        )
+    })
+
 
     return (
         <>
