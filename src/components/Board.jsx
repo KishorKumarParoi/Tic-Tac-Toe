@@ -40,7 +40,7 @@ export default function Board({ onPlay, count, squares, xIsNext }) {
         } else {
             nextSquares[i] = 'O';
         }
-        onPlay(nextSquares);
+        onPlay(nextSquares, i);
     }
 
     const boardLength = 3;
