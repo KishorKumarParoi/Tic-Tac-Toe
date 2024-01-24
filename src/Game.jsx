@@ -9,6 +9,15 @@ export default function Game() {
     let [count, setCount] = useState(0);
     count = currentMove;
 
+    const [ascending, setAscending] = useState(true);
+    const displayOrder = ascending ? "Ascending Order" : "Descending Order";
+
+    function toggleOrder() {
+        setAscending(!ascending);
+    }
+
+
+
     function handlePlay(nextSquares) {
         const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
         setHistory(nextHistory);
@@ -43,9 +52,14 @@ export default function Game() {
 
     return (
         <>
-            <Board onPlay={handlePlay} count={count} xIsNext={xIsNext} squares={currentSquares} />
-            <div className="bg-slate-600">
-                <ol className="bg-white text-black font-bold">{moves}</ol>
+            <div className="game">
+                <Board onPlay={handlePlay} count={count} xIsNext={xIsNext} squares={currentSquares} />
+                <div className="game-info">
+                    <div className="center">
+                        <button onClick={toggleOrder} className="mb-4 font-bold text-2xl bg-blue-400 p-2 rounded-md">{displayOrder}</button>
+                    </div>
+                    <ol className="bg-white text-black font-bold">{ascending ? moves : moves.slice().reverse()}</ol>
+                </div>
             </div>
         </>
     )
