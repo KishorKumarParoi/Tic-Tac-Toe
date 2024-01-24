@@ -2,9 +2,9 @@ import { useState } from "react";
 import Board from "./components/Board";
 
 export default function Game() {
-    const [history, setHistory] = useState([Array(9).fill(null)]);
+    const [history, setHistory] = useState([{ squares: Array(9).fill(null), index: -1 }]);
     const [currentMove, setCurrentMove] = useState(0);
-    const currentSquares = history[currentMove];
+    const currentSquares = history[currentMove].squares;
     const xIsNext = currentMove % 2 === 0;
     let [count, setCount] = useState(0);
     count = currentMove;
@@ -16,11 +16,8 @@ export default function Game() {
         setAscending(!ascending);
     }
 
-
-
-
-    function handlePlay(nextSquares) {
-        const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    function handlePlay(nextSquares, i) {
+        const nextHistory = [...history.slice(0, currentMove + 1), { squares: nextSquares, index: i }];
         setHistory(nextHistory);
         setCount(count + 1);
         setCurrentMove(nextHistory.length - 1);
@@ -30,10 +27,16 @@ export default function Game() {
         setCurrentMove(nextMove);
     }
 
-    const moves = history.map((squares, move) => {
+    const moves = history.map((turnInfo, move) => {
         let description;
+        const row = Math.floor(turnInfo.index / 3);
+        const col = turnInfo.index % 3;
+        const Symbol = turnInfo.index % 2 === 0 ? 'X' : 'O';
+        const currentSquares = turnInfo.squares;
+
         if (move > 0) {
-            description = `Go to move #${move}`;
+            console.log(currentSquares);
+            description = `Go to move #${move} index: ${turnInfo.index} of Board[${row}][${col}] of Symbol: ${Symbol})`;
         } else {
             description = 'Go to game start';
         }
@@ -41,7 +44,7 @@ export default function Game() {
         return (
             <li key={move} className="mb-1 p-2 bg-yellow-500">
                 {currentMove === move ? (
-                    <>You are at move #{move}</>
+                    <>You are at move #{move} index : {turnInfo.index} of Board[{row}][{col}] of Symbol: {Symbol}) </>
                 ) :
                     (
                         <button onClick={() => jumpTo(move)} >{description}</button>
